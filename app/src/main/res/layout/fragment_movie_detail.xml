@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/movieImage"
+        android:layout_width="318dp"
+        android:layout_height="251dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/movieTitle"
+        android:layout_width="251dp"
+        android:layout_height="51dp"
+        android:text="Title"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/movieImage"
+        app:layout_constraintStart_toStartOf="@+id/movieImage"
+        app:layout_constraintTop_toBottomOf="@+id/movieImage" />
+
+    <TextView
+        android:id="@+id/movieRate"
+        android:layout_width="251dp"
+        android:layout_height="51dp"
+        android:text="Rate"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/movieTitle"
+        app:layout_constraintStart_toStartOf="@+id/movieTitle"
+        app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
+
+    <TextView
+        android:id="@+id/moviePopularity"
+        android:layout_width="251dp"
+        android:layout_height="51dp"
+        android:text="Popularity"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/movieRate"
+        app:layout_constraintStart_toStartOf="@+id/movieRate"
+        app:layout_constraintTop_toBottomOf="@+id/movieRate" />
+
+    <TextView
+        android:id="@+id/movieReleaseDate"
+        android:layout_width="251dp"
+        android:layout_height="51dp"
+        android:text="Release Date"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/moviePopularity"
+        app:layout_constraintStart_toStartOf="@+id/moviePopularity"
+        app:layout_constraintTop_toBottomOf="@+id/moviePopularity" />
+
+    <TextView
+        android:id="@+id/movieVoteCount"
+        android:layout_width="251dp"
+        android:layout_height="51dp"
+        android:text="Vote Count"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/movieReleaseDate"
+        app:layout_constraintStart_toStartOf="@+id/movieReleaseDate"
+        app:layout_constraintTop_toBottomOf="@+id/movieReleaseDate" />
+
+    <EditText
+        android:id="@+id/movieOverview"
+        android:layout_width="373dp"
+        android:layout_height="77dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieVoteCount" />
+
+    <Button
+        android:id="@+id/addFavoriteButton"
+        android:layout_width="143dp"
+        android:layout_height="60dp"
+        android:text="Add to Favorite"
+        app:layout_constraintEnd_toEndOf="@+id/movieOverview"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/movieOverview"
+        app:layout_constraintTop_toBottomOf="@+id/movieOverview" />
+
+    <Button
+        android:id="@+id/removeFromFavoriteButton"
+        android:layout_width="164dp"
+        android:layout_height="60dp"
+        android:text="Remove From Favorite"
+        app:layout_constraintBottom_toBottomOf="@+id/addFavoriteButton"
+        app:layout_constraintEnd_toEndOf="@+id/movieOverview"
+        app:layout_constraintTop_toBottomOf="@+id/movieOverview"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

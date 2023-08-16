@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/listViewFragment">
+
+    <fragment
+        android:id="@+id/listViewFragment"
+        android:name="com.mertsen.imdbproject.view.ListViewFragment"
+        android:label="fragment_list_view"
+        tools:layout="@layout/fragment_list_view">
+        <action
+            android:id="@+id/action_listViewFragment_to_gridViewFragment"
+            app:destination="@id/gridViewFragment" />
+        <action
+            android:id="@+id/action_listViewFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+        <action
+            android:id="@+id/action_listViewFragment_to_favoriteMoveFragment"
+            app:destination="@id/favoriteMoveFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gridViewFragment"
+        android:name="com.mertsen.imdbproject.view.GridViewFragment"
+        android:label="fragment_grid_view"
+        tools:layout="@layout/fragment_grid_view" >
+        <action
+            android:id="@+id/action_gridViewFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+        <action
+            android:id="@+id/action_gridViewFragment_to_listViewFragment"
+            app:destination="@id/listViewFragment" />
+        <action
+            android:id="@+id/action_gridViewFragment_to_favoriteMoveFragment"
+            app:destination="@id/favoriteMoveFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailMovieFragment"
+        android:name="com.mertsen.imdbproject.view.DetailMovieFragment"
+        android:label="DetailMovieFragment">
+        <argument
+            android:name="movieTitleArg"
+            app:argType="string" />
+        <argument
+            android:name="movieUrlArg"
+            app:argType="string" />
+        <argument
+            android:name="moviePopularityArg"
+            app:argType="float" />
+        <argument
+            android:name="movieReleaseDateArg"
+            app:argType="string" />
+        <argument
+            android:name="movieVoteCountArg"
+            app:argType="float" />
+        <argument
+            android:name="movieVoteArg"
+            app:argType="float" />
+        <argument
+            android:name="movieOverView"
+            app:argType="string" />
+        <argument
+            android:name="movieIDArg"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailMovieFragment_to_favoriteMoveFragment"
+            app:destination="@id/favoriteMoveFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteMoveFragment"
+        android:name="com.mertsen.imdbproject.view.FavoriteMoveFragment"
+        android:label="fragment_favorite_move"
+        tools:layout="@layout/fragment_favorite_move">
+        <argument
+            android:name="favoriteMovieTitle"
+            app:argType="string" />
+        <argument
+            android:name="favoriteMovieUrl"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_favoriteMoveFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+    </fragment>
+</navigation>
