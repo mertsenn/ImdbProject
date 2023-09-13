@@ -4,22 +4,29 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.mertsen.imdbproject.R
+import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovie
+import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovieDao
 import com.mertsen.imdbproject.model.MovieResponse
 import com.mertsen.imdbproject.model.Moviess
+import com.mertsen.imdbproject.modelView.GridViewModelView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // PagingDataAdapter kullanarak film listesi için GridView adaptörü
-class MovieGridViewRecycleAdapter : PagingDataAdapter<Moviess, MovieGridViewRecycleAdapter.MovieGridViewHolder>(MOVIE_COMPARATOR) {
+class MovieGridViewRecycleAdapter(private val favoriteMovie: FavoriteMovieDao, private val gridModelView: GridViewModelView)
+    : PagingDataAdapter<Moviess, MovieGridViewRecycleAdapter.MovieGridViewHolder>(MOVIE_COMPARATOR) {
 
     // Film poster URL'leri için bir liste
     private var imageUrls: List<String>? = null
@@ -46,6 +53,7 @@ class MovieGridViewRecycleAdapter : PagingDataAdapter<Moviess, MovieGridViewRecy
     inner class MovieGridViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val mySingleMovieItem = itemView.findViewById<TextView>(R.id.singleGridMovieItem)
         val movieImageView = itemView.findViewById<ImageView>(R.id.GridImageView) // ImageView eklendi
+        val favoriteCheckBox : CheckBox = itemView.findViewById(R.id.favoriteCheckBox)
 
         // Film verilerini bağlama işlemi
         fun bind(movie: Moviess) {
@@ -58,6 +66,18 @@ class MovieGridViewRecycleAdapter : PagingDataAdapter<Moviess, MovieGridViewRecy
                     .diskCacheStrategy(DiskCacheStrategy.NONE) // Önbellekten yüklemeyi devre dışı bırakır
                     .skipMemoryCache(true) // Bellek önbelleğini devre dışı bırakır
                     .into(movieImageView)
+            }
+            //checkbox ile filmleri favorilere ekleme
+            favoriteCheckBox.setOnCheckedChangeListener{buttonView , isChecked ->
+
+                if (isChecked){
+                    Log.d("CheckBoxIsSelected", "selected")
+                    gridModelView.addFavoriteMovie(movie)
+                }
+                else {
+                    Log.d("CheckBoxIsSelected", "not selected")
+                    gridModelView.removeFavoriteMovie(movie)
+                }
             }
 
             // Film öğesine tıklamada navigasyon işlemi
@@ -96,6 +116,11 @@ class MovieGridViewRecycleAdapter : PagingDataAdapter<Moviess, MovieGridViewRecy
             if (movie != null) {
                 holder.bind(movie)
             }
+            CoroutineScope(Dispatchers.IO).launch {
+                val isFavorite = movie?.id?.let { favoriteMovie.getFavoriteMovieById(it.toInt()) } != null
+                withContext(Dispatchers.Main) {
+                    holder.favoriteCheckBox.isChecked = isFavorite
+                } }
         }
     }
 }

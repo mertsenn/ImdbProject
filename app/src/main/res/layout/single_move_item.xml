@@ -1,39 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    android:background="@drawable/list_view_sinlge_frame"
+    android:elevation="20dp"
+    android:textAlignment="viewStart"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="20dp"
+    >
 
-    <TextView
-        android:id="@+id/singleMovieItem"
-        android:layout_width="222dp"
-        android:layout_height="66dp"
-        android:layout_marginEnd="76dp"
-        android:text="Movie1"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/myFavoriteMovieImage"
-        app:layout_constraintTop_toTopOf="@+id/myFavoriteMovieImage" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/myFavoriteMovieImage"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/singleMovieItem"
+            android:layout_width="189dp"
+            android:layout_height="29dp"
+            android:text="Movie1"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/myFavoriteMovieImage"
+            app:layout_constraintTop_toTopOf="@+id/myFavoriteMovieImage"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/starImageView"
-        android:layout_width="52dp"
-        android:layout_height="46dp"
-        app:layout_constraintBottom_toBottomOf="@+id/singleMovieItem"
-        app:layout_constraintStart_toEndOf="@+id/singleMovieItem"
-        app:layout_constraintTop_toTopOf="@+id/singleMovieItem"
-        app:srcCompat="@android:drawable/btn_star_big_on"
-        android:visibility="gone"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/myFavoriteMovieImage"
+            android:layout_width="95dp"
+            android:layout_height="125dp"
+            android:adjustViewBounds="false"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <CheckBox
+            android:id="@+id/favoriteCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:button="@drawable/selector"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/starImageView"
+            android:layout_width="52dp"
+            android:layout_height="46dp"
+
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/btn_star_big_on"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/viewCountImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="44dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_view" />
+
+        <TextView
+            android:id="@+id/viewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/viewCountImage"
+            app:layout_constraintStart_toEndOf="@+id/viewCountImage"
+            app:layout_constraintTop_toTopOf="@+id/viewCountImage" />
+
+        <RatingBar
+            android:id="@+id/imdbRatingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:progressTint="@android:color/holo_orange_dark"
+            app:layout_constraintBottom_toBottomOf="@+id/viewCountImage"
+            app:layout_constraintStart_toStartOf="@+id/singleMovieItem"
+            app:layout_constraintTop_toTopOf="@+id/viewCountImage" />
+
+        <TextView
+            android:id="@+id/imdbRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/imdbRatingBar"
+            app:layout_constraintStart_toEndOf="@+id/imdbRatingBar"
+            app:layout_constraintTop_toTopOf="@+id/imdbRatingBar"
+            app:layout_constraintVertical_bias="0.333" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

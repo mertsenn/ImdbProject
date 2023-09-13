@@ -17,6 +17,7 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mertsen.imdbproject.R
 import com.mertsen.imdbproject.databinding.FragmentListViewBinding
+import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovieDao
 import com.mertsen.imdbproject.model.Moviess
 import com.mertsen.imdbproject.modelView.ListViewModelView
 import com.mertsen.imdbproject.modelView.SharedViewModel
@@ -38,6 +39,11 @@ class ListViewFragment : Fragment() {
     // ViewModel nesneleri
     private val viewModel by viewModels<ListViewModelView>()
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val favoriteMovieDao: FavoriteMovieDao by lazy {
+        viewModel.getFavoriteMovieDao()
+    }
+
+
 
     // Fragment oluşturulduğunda
     override fun onCreateView(
@@ -54,6 +60,7 @@ class ListViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         // Favorilere gitmek için butonun tıklanma işlemi
         val listViewToFavoriteButton = binding.listViewToFavoriteButton
         listViewToFavoriteButton.setOnClickListener {
@@ -62,7 +69,7 @@ class ListViewFragment : Fragment() {
         }
 
         // Film adaptörünü oluştur
-        movieAdapter = MovieListViewRecycleAdapter(viewModel.getFavoriteMovieDao())
+        movieAdapter = MovieListViewRecycleAdapter(favoriteMovieDao,viewModel)
 
         // RecyclerView ayarları
         binding.listRecycleView.apply {
@@ -83,7 +90,11 @@ class ListViewFragment : Fragment() {
         // Favori filmleri izleyerek adapteri güncelleme işlemi
         viewModel.getFavoriteMovieDao().getAllLiveData().observe(viewLifecycleOwner) { favoriteMovies ->
             movieAdapter.setFavoriteMovies(favoriteMovies)
+            val favoriteMovieIds = favoriteMovies.map { it.PID }
         }
+
+
+
 
         // Paging ayarları
         val pagingConfig = PagingConfig(

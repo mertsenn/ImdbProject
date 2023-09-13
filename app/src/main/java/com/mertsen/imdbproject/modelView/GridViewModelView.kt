@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovie
 import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovieDao
 import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovieDatabase
 import com.mertsen.imdbproject.model.MovieResponse
@@ -57,5 +58,29 @@ class GridViewModelView @Inject constructor(
     // Favori film verilerine erişim için FavoriteMovieDao döndürülür
     fun getFavoriteMovieDao(): FavoriteMovieDao {
         return favoriteMovieDatabase.favoriteMovieDao()
+    }
+    fun addFavoriteMovie (movie : Moviess){
+        viewModelScope.launch(Dispatchers.IO){
+            val favoriteMovie = FavoriteMovie(
+                PID = movie.id.toInt(),
+                imageUrl = movie.poster_path!!,
+                title = movie.title!!,
+                isFavorite = true
+            )
+            favoriteMovieDatabase.favoriteMovieDao().insert(favoriteMovie)
+        }
+    }
+    fun removeFavoriteMovie (movie : Moviess){
+        viewModelScope.launch(Dispatchers.IO){
+            val favoriteMovie = FavoriteMovie(
+                PID = movie.id.toInt(),
+                imageUrl = movie.poster_path!!,
+                title = movie.title!!,
+                isFavorite = false
+            )
+            favoriteMovieDatabase.favoriteMovieDao().delete(favoriteMovie)
+
+
+        }
     }
 }

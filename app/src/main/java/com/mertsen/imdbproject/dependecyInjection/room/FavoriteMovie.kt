@@ -11,5 +11,7 @@ data class FavoriteMovie(
     @ColumnInfo("title")
     val title :String,
     @ColumnInfo("imageUrl")
-    val imageUrl :String
+    val imageUrl :String,
+    @ColumnInfo("isFavorite")
+    var isFavorite: Boolean = false
 )

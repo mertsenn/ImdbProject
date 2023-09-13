@@ -3,8 +3,6 @@ package com.mertsen.imdbproject.view
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
@@ -13,15 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.Glide
 import com.mertsen.imdbproject.R
 import com.mertsen.imdbproject.databinding.FragmentGridViewBinding
+import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovieDao
 import com.mertsen.imdbproject.model.Moviess
 import com.mertsen.imdbproject.modelView.GridViewModelView
 import com.mertsen.imdbproject.modelView.SharedViewModel
@@ -47,6 +44,9 @@ class GridViewFragment : Fragment() {
 
     // Paylaşılan ViewModel nesnesi
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val favoriteMovieDao: FavoriteMovieDao by lazy {
+        viewModel.getFavoriteMovieDao()
+    }
 
     // Fragment oluşturulduğunda
     override fun onCreateView(
@@ -71,7 +71,7 @@ class GridViewFragment : Fragment() {
         }
 
         // Film grid adaptörünü oluştur
-        movieGridAdapter = MovieGridViewRecycleAdapter()
+        movieGridAdapter = MovieGridViewRecycleAdapter(favoriteMovieDao,viewModel)
         binding.gridRecycleView.apply {
             layoutManager = GridLayoutManager(requireContext(), 2) // İki sütunlu grid düzeni
             adapter = movieGridAdapter

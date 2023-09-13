@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovie
 import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovieDao
 import com.mertsen.imdbproject.dependecyInjection.room.FavoriteMovieDatabase
 import com.mertsen.imdbproject.model.MovieResponse
@@ -29,6 +30,7 @@ class ListViewModelView @Inject constructor(
     // MutableLiveData, gözlemleyicilere veri akışı sağlayan veri deposu türünden bir sınıftır
     val liveDataMovieList = MutableLiveData<MovieResponse>()
     val liveDataMovieUrlList = MutableLiveData<List<String>>()
+
 
     // Movie verilerini almak için çağrılan yöntem
     fun callMovieRepo() {
@@ -56,4 +58,32 @@ class ListViewModelView @Inject constructor(
     fun getFavoriteMovieDao(): FavoriteMovieDao {
         return favoriteMovieDatabase.favoriteMovieDao()
     }
+    fun addFavoriteMovie (movie : Moviess){
+        viewModelScope.launch(Dispatchers.IO){
+            val favoriteMovie = FavoriteMovie(
+                PID = movie.id.toInt(),
+                imageUrl = movie.poster_path!!,
+                title = movie.title!!,
+                isFavorite = true
+            )
+            favoriteMovieDatabase.favoriteMovieDao().insert(favoriteMovie)
+        }
+    }
+    fun removeFavoriteMovie (movie : Moviess){
+        viewModelScope.launch(Dispatchers.IO){
+            val favoriteMovie = FavoriteMovie(
+                PID = movie.id.toInt(),
+                imageUrl = movie.poster_path!!,
+                title = movie.title!!,
+                isFavorite = false
+            )
+            favoriteMovieDatabase.favoriteMovieDao().delete(favoriteMovie)
+
+
+        }
+    }
+
+
+
+
 }

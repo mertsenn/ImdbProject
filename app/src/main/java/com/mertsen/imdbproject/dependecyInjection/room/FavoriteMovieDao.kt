@@ -19,4 +19,7 @@ interface FavoriteMovieDao {
 
     @Query("SELECT * FROM FavoriteMovie WHERE PID = :PID")
     fun getFavoriteMovieById(PID: Int): FavoriteMovie?
+
+
+
 }

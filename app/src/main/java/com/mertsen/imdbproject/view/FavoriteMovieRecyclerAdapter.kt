@@ -36,6 +36,7 @@ class FavoriteMovieRecyclerAdapter : RecyclerView.Adapter<FavoriteMovieRecyclerA
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMovieHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = FavoriteSingleMovieItemBinding.inflate(inflater, parent, false)
+
         return FavoriteMovieHolder(binding)
     }
 
