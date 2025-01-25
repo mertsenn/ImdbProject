@@ -1,7 +1,7 @@
 # ImdbProject
 # IMDb Clone
 
-In this project, we have created a movie listing and detail viewing application similar to IMDb. The application was developed using Kotlin programming language and incorporates modern app development techniques for Android.
+In this project, I have created a movie listing and detail viewing application similar to IMDb. The application was developed using Kotlin programming language and incorporates modern app development techniques for Android.
 
 ## Features
 
